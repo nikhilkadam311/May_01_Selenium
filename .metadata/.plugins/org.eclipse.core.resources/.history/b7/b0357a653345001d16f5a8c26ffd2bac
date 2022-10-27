@@ -1,0 +1,8 @@
+package com.reqres.utilities;
+
+public class JSONReading {
+	public String getJSONData(String key, String JSONFilePath) {
+		
+	}
+	
+}

@@ -1,0 +1,15 @@
+package RESTAPIGETPOST;
+
+import org.testng.annotations.Test;
+
+import io.restassured.RestAssured;
+import io.restassured.specification.RequestSpecification;
+
+public class PostRequestPractice2 {
+  @Test
+  public void resisterUser() {
+	  RestAssured.baseURI= "https://reqres.in/api";
+	RequestSpecification httpRrequest = RestAssured.given();	
+	  
+  }
+}

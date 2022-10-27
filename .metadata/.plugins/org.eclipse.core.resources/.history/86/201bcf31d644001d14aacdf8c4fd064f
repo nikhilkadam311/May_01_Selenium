@@ -1,0 +1,10 @@
+package com.reqres.base;
+
+public class TestBase {
+	public static RequestSpecification httpReq;
+	public static Response response;
+
+	public Logger logger;
+	@BeforeClass
+	
+}

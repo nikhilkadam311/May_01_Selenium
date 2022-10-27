@@ -1,0 +1,15 @@
+package HTTPMethod;
+
+import static io.restassured.RestAssured.given;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+
+public class GetRequest {
+	public static void main(String[] args) {
+		RestAssured.baseURI = "https://reqres.in";
+		Response getResponse = given().log().all().queryParam("page", "2").when().get("api/users").then().assertThat()
+				.statusCode(200).extract().response();
+		String getResponseBody = getResponse.asPrettyString();
+		System.out.println(getResponseBody);
+	}
+}

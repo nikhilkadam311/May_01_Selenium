@@ -1,0 +1,31 @@
+package org.factory;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+public class DriverFactory {
+	public static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<WebDriver>();
+public WebDriver init_driver(String bName) {
+		if(bName.equalsIgnoreCase("ch") || bName.equalsIgnoreCase("chrome")) {
+			System.setProperty("webdriver.chrome.driver","./drivers/chromedriver.exe");
+			ChromeOptions options = new ChromeOptions();
+			options.addArguments("start-maximized");
+//			driver = new ChromeDriver(options);
+		} else if(bName.equalsIgnoreCase("ff") || bName.equalsIgnoreCase("firefox")) {
+			System.setProperty("webdriver.gecko.driver","./drivers/geckodriver.exe");
+//			driver = new FirefoxDriver();
+//			driver.manage().window().maximize();
+		} else if(bName.equalsIgnoreCase("edge")) {
+			System.setProperty("webdriver.edge.driver","./drivers/msedgedriver.exe");
+//			driver = new EdgeDriver();
+//			driver.manage().window().maximize();
+		} else {  
+			System.out.println("Invalid browser name");
+		}
+		
+		return null;
+}
+public static synchronized WebDriver getDriver() {
+	return tlDriver.get();
+}
+}

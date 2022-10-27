@@ -1,0 +1,9 @@
+package RESTAPIGETPOST;
+
+import org.testng.annotations.Test;
+
+public class PostRequestPractice2 {
+  @Test
+  public void f() {
+  }
+}

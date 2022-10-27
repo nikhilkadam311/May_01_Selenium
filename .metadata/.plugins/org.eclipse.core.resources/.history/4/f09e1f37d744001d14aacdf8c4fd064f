@@ -1,0 +1,18 @@
+package com.reqres.base;
+
+import java.util.logging.Logger;
+
+import org.testng.annotations.BeforeClass;
+
+public class TestBase {
+		public static RequestSpecification httpReq;
+		public static Response response;
+
+		public Logger logger;
+		@BeforeClass
+		public void setUp() {
+			logger = Logger.getLogger("ReqresAPITesting");
+			PropertyConfigurator.configure("Log4j.properties");
+			logger.setLevel(Level.DEBUG);
+}
+}

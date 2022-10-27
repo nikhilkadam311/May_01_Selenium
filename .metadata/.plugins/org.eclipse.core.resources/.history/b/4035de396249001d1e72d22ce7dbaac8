@@ -1,0 +1,50 @@
+package HTTPMethod;
+
+import static io.restassured.RestAssured.given;
+import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
+
+public class MapAPI {
+	private static final io.restassured.path.json.JsonPath New = null;
+
+	public static void main (String[] args)	 {
+		RestAssured.baseURI = "https://rahulshettyacademy.com";
+		String response = given().log().all().queryParam("key","qaclick123")
+				.header("Content-Type", "application/json")
+			.body
+			("{\r\n" + "    \"location\": {\r\n"	+ "        \"lat\": -38.383494,\r\n"+ "        \"lng\": 33.427362\r\n"
+					+ "    },\r\n" + "    \"accuracy\": 50,\r\n" + "    \"name\": \"FrontLine House\",\r\n"
+					+ "	\"phone_number\": \"(+91) 983 893 3937\",\r\n"
+					+ "    \"address\": \"29, side layout, cohen 09\",\r\n"
+					+ "    \"types\": [\r\n"
+					+ "        \"shoe park\",\r\n"
+					+ "        \"shop\"\r\n"
+					+ "    ],\r\n"
+					+ "    \"website\": \"http://google.com\",\r\n"
+					+ "    \"language\": \"French-IN\"\r\n"
+					+ "}")
+				.post("maps/api/place/add/json").then().assertThat().statusCode(200).extract().response()
+				.asPrettyString();
+		System.out.println(response);
+		
+		JsonPath js = new JsonPath(response);
+		String placeId = js.getString("place_id");
+		System.out.println(placeId);
+		
+		String putResponse = given().log().all().queryParam("key","qaclick123").queryParam("place_id",placeId)
+				.header("Content-Type", "application/json")
+			.body("{\r\n"
+					+ "    \"place_id\":\"e4fbd4076f04508c00550d7f14c64ce0\",\r\n"
+					+ "    \"address\":\"70 winter walk, USA\",\r\n"
+					+ "    \"key\":\"qaclick123\"\r\n"
+					+ "}").post("maps/api/place/add/json").then().assertThat().statusCode(200).extract().response()
+				.asPrettyString();
+		System.out.println(putResponse);
+	}
+
+	private static io.restassured.path.json.JsonPath JsonPath(String response) {
+		return null;
+		// TODO Auto-generated method stub
+		
+	}
+}

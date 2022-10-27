@@ -1,0 +1,31 @@
+package HTTPMethod;
+
+import static io.restassured.RestAssured.given;
+
+import Utils.Payload;
+import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
+
+public class PostRequest extends Payload {
+
+	public static void main(String[] args) {
+		RestAssured.baseURI = "https://reqres.in";
+		String userName = "Smith";
+		String job = "SDET";
+		Response createUserResponse = given().header("Content-Type", "application/json")
+				.body(Payload.createUser(userName, job)).log().all().when().post("api/users").then().assertThat()
+				.statusCode(201).extract().response();
+		String createUserResponseBody = createUserResponse.asPrettyString();
+		System.out.println(createUserResponseBody);
+
+//		validate the JSON response
+//		for that we have to parse the json reponse using JsonPath class
+		JsonPath js = new JsonPath(createUserResponseBody);
+		String createdUserName = js.getString("name");
+		String createdUserJob = js.getString("job");
+		System.out.println(createdUserName.equals(userName));
+		System.out.println(createdUserJob.equals(job));
+	}
+
+}

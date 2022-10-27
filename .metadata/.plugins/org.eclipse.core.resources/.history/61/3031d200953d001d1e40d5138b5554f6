@@ -1,0 +1,84 @@
+package org.realExample;
+
+import java.io.FileInputStream;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.utilities.BaseUtility;
+
+public class ActiTimeExcelDataSendToSystem {
+	public static void main(String[] args) throws InterruptedException {
+		System.out.println("*** Program Starts ***");
+		String url ="http://localhost:99/login.do";	        // 1. Facebook open
+		BaseUtility bu = new BaseUtility();
+		WebDriver driver = bu.startUp("ch", url);
+		Actions act = new Actions(driver);
+		WebElement uNameField = driver.findElement(By.id("username"));
+		act.sendKeys(uNameField, "admin").perform();
+
+		WebElement pwdField = driver.findElement(By.cssSelector("input[name='pwd']"));
+		act.sendKeys(pwdField, "manager").perform();
+
+		WebElement loginBtn = driver.findElement(By.cssSelector("#loginButton>div"));
+		act.click(loginBtn).perform();
+		Thread.sleep(4000);
+
+		WebElement task = driver.findElement(By.xpath("//*[@id=\"topnav\"]/tbody/tr/td[3]"));
+		act.click(task).perform();
+
+		try {	
+			FileInputStream fis = new FileInputStream
+					("./src/test/resources/org/excelFiles/CreateNewCustomer.xlsx");	
+			Workbook wb = WorkbookFactory.create(fis);
+			Sheet s1 = wb.getSheet("Data");
+			for(int i=1; i<=s1.getLastRowNum();i++ ) {        //   row 0
+				Row r1 = s1.getRow(i);				          //   row 0
+				for(int j=0; j<=0;j++) {    //column 0,1,2,3,4,5../int k=0; k<3,4
+					Cell c1 = r1.getCell(0);	
+					String text1 = c1.getStringCellValue(); 
+					System.out.println("text1 = "+text1);
+					WebElement addNew = driver.findElement(By.cssSelector("body.task_list.with-navigation.navBottomSpaceHidden.ext-chrome:nth-child(2) div.ui-widget-content.ui-resizable:nth-child(1) div.customersProjectsPanel div.header div.addNewContainer > div.addNewButton"));
+					act.click(addNew).perform();
+
+					WebElement newCustomer = driver.findElement(By.cssSelector(".item.createNewCustomer.ellipsis"));
+					act.click(newCustomer).perform();
+					Thread.sleep(2000);
+
+					WebElement enterCustomerName = driver.findElement(By.cssSelector("#customerLightBox_nameField"));
+					act.click(enterCustomerName).perform();
+					act.sendKeys(enterCustomerName,text1).perform();			
+					Thread.sleep(2000);
+					for(int k=1; k<=1;k++) { 
+						Cell c2 = r1.getCell(1);	
+						String text2 = c2.getStringCellValue(); 
+						System.out.println("text2 : "+text2);	
+						WebElement AddCustomerDescription = driver.findElement(By.cssSelector("#customerLightBox_descriptionField"));
+						act.click(AddCustomerDescription).perform();
+						act.sendKeys(AddCustomerDescription, text2).perform();
+
+						WebElement createCustomer = driver.findElement(By.cssSelector("#customerLightBox_commitBtn"));
+						act.click(createCustomer).perform();
+						Thread.sleep(5000);						
+
+						WebElement notificationEle = driver.findElement(By.xpath
+								("//span[text()=\"Customer '"+text1+"' has been created\"]"));
+						System.out.println("notificationEle = "+notificationEle);
+						System.out.println("isDisplayed : "+notificationEle.isDisplayed());
+					}
+					System.out.println();
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		//		driver.close();
+		//		driver.quit();
+	}
+}

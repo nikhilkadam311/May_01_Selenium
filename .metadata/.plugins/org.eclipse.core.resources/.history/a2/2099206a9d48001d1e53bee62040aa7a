@@ -1,0 +1,13 @@
+package HTTPMethod;
+
+import io.restassured.RestAssured;
+import static io.restassured.RestAssured.*;
+
+public class MapAPI {
+	public static void main (String[] args)	 {
+		RestAssured.baseURI = "https://rahulshettyacademy.com";
+		String response = given.log().all().queryParam("key","qaclick123").header("Content-Type","application/json")
+		.body().post("maps/api/place/add/json").then().assertThat().statusCode(200).extract().response().asPrettyString();
+
+	}
+}

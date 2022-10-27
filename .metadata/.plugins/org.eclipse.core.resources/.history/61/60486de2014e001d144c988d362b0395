@@ -1,0 +1,6 @@
+package Utils;
+public class Payload {
+	public static String createUser(String name, String job) {
+		return "{\r\n" + "    \"name\": \"" + name + "\",\r\n" + "    \"job\": \"" + job + "\"\r\n" + "}";
+	}
+}

@@ -1,0 +1,31 @@
+package org.stepDefinations;
+
+import org.Pages.LoginPage;
+import org.factory.DriverFactory;
+import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+import org.utilities.ConfigReader;
+
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
+public class DashboardStepDef {	
+	@Then("Dashboard page is displayed")
+	public void dashboard_page_is_displayed() {
+		LoginPage lp_obj = new LoginPage(DriverFactory.getDriver());
+		Assert.assertTrue(lp_Obj.verifyDashboardLogoIsDisplayed());
+	}
+	@Then("Dashboard URL is {string}")
+	public void dashboard_url_is(String string) {
+
+	}
+	@Then("Dashboard Title is {string}")
+	public void dashboard_title_is(String string) {
+
+	}
+	@Then("Dashboard displayed {int}")
+	public void dashboard_displayed(Integer int1) {
+
+	}
+}

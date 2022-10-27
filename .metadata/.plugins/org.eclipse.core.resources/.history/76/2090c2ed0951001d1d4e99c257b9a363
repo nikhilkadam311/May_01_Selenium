@@ -1,0 +1,39 @@
+package org.factory;
+
+import java.time.Duration;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class DriverFactory {
+	public static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<WebDriver>();
+public WebDriver init_driver(String bName) {
+		if(bName.equalsIgnoreCase("ch") || bName.equalsIgnoreCase("chrome")) {
+			System.setProperty("webdriver.chrome.driver","./drivers/chromedriver.exe");
+			ChromeOptions options = new ChromeOptions();
+			options.addArguments("start-maximized");
+//			driver = new ChromeDriver(options);
+			tlDriver.set(new ChromeDriver(options));
+		} else if(bName.equalsIgnoreCase("ff") || bName.equalsIgnoreCase("firefox")) {
+			System.setProperty("webdriver.gecko.driver","./drivers/geckodriver.exe");
+//			driver = new FirefoxDriver();
+			tlDriver.set(new FirefoxDriver());
+			getDriver.manage().window().maximize();
+		} else if(bName.equalsIgnoreCase("edge")) {
+			System.setProperty("webdriver.edge.driver","./drivers/msedgedriver.exe");
+//			driver = new EdgeDriver();
+			getDriver.manage().window().maximize();
+			tlDriver.set(new EdgeDriver());
+		} else {  
+			System.out.println("Invalid browser name");
+		}
+		getDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+		return null;
+}
+public static synchronized WebDriver getDriver() {
+	return tlDriver.get();
+}
+}

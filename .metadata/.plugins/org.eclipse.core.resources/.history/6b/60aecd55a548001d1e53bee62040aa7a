@@ -1,0 +1,19 @@
+package HTTPMethod;
+
+import static io.restassured.RestAssured.given;
+import io.restassured.RestAssured;
+
+public class MapAPI {
+	public static void main (String[] args)	 {
+		RestAssured.baseURI = "https://rahulshettyacademy.com";
+		String response = given().log().all().queryParam("key","qaclick123")
+				.header("Content-Type", "application/json")
+				.body("{\r\n" + "  \"location\": {\r\n" + "   \"lat\": -38.383494,\r\n" + "   \"lng\": 33.427362\r\n"
+						+ " } ,\r\n" + " \"accuracy\": 50,\r\n" +  "name\":  \"Galaxy house\",\r\n" 
+						+  "phone number\": \"(+91) 983 893 3937\",\r\n"
+						+  "address\": \"29, side layout,Pune\",\r\n"+  "types\": [\r\n"+ "}")
+				.post("maps/api/place/add/json").then().assertThat().statusCode(200).extract().response()
+				.asPrettyString();
+		System.out.println(response);
+	}
+}

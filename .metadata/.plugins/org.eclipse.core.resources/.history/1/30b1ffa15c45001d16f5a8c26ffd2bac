@@ -1,0 +1,40 @@
+package com.reqres.testCases;
+
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+import com.reqres.base.TestBase;
+
+import io.restassured.RestAssured;
+import io.restassured.http.Method;
+
+public class TC01_Get_User extends TestBase {
+	
+	@BeforeClass	
+	void getAllUser() throws InterruptedException {
+		logger.info("------- Started TC01_Get_User -------");
+		 RestAssured.baseURI= "https://reqres.in";
+			httpReq = RestAssured.given(); //httpRequest will be used to send the request
+			response = httpReq.request(Method.GET,"/api/users?page=2");
+			Thread.sleep(3);
+	}
+	@Test
+	void checkResponseBody() {
+		logger.info("------- Check Response Body -------");
+		String responseBody = response.getBody().asPrettyString();
+		logger.info("Response Body ==> " +  responseBody);
+		 RestAssured.baseURI= "https://reqres.in";
+			httpReq = RestAssured.given(); //httpRequest will be used to send the request
+			response = httpReq.request(Method.GET,"/api/users?page=2");
+			Thread.sleep(3);
+	}
+	@Test
+	@BeforeClass	
+	void getAllUser() throws InterruptedException {
+		logger.info("------- Started TC01_Get_User -------");
+		 RestAssured.baseURI= "https://reqres.in";
+			httpReq = RestAssured.given(); //httpRequest will be used to send the request
+			response = httpReq.request(Method.GET,"/api/users?page=2");
+			Thread.sleep(3);
+	}
+}

@@ -1,0 +1,12 @@
+Serialization & Deserialization of request or response payload using POJO classes
+
+POJO Classes --> Plain Old Java Object
+
+Serialization : Java Object converted to Json Body
+Deserialization : Json Body to Java Object
+
+Extra Tools/Depencies required -->
+	1. Jackson Databind
+	2. Jackson annotation
+	3. Jackson core
+	4. Gson

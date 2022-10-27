@@ -1,0 +1,31 @@
+package com.reqres.testCases;
+
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class AccountsTC1 {
+	@BeforeClass	
+	public void getAccountTestData() {
+		System.out.println("Read test data from Account sheet");
+	}
+	
+	@BeforeClass
+	public void clearAccountTestData() {
+		System.out.println("Flush/clear Account TestData");
+	}
+	
+	@Test
+	public void createCustomer() {
+		System.out.println("create Account");
+	}
+	
+	@Test
+	public void updateCustomer() {
+		System.out.println("update Account");
+	}
+
+	@Test
+	public void deleteCustomer() {
+		System.out.println("delete Account");
+	}
+}

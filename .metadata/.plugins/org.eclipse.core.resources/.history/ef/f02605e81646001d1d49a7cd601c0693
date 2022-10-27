@@ -1,0 +1,18 @@
+package com.reqres.utilities;
+
+import org.testng.ITestContext;
+import org.testng.ITestListener;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentReporter;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+
+
+public class Listeners implements ITestListener {
+	public ExtentSparkReporter sparkReporter;
+	public ExtentReporter extent;
+	public ExtentTest test;
+	
+	public void onStart(ITestContext testContext) {
+		sparkReporter = new ExtentSparkReporter(System.getProperty("user.dir") + "/ExtentReport/myReport.html");
+	}	
+}

@@ -1,0 +1,14 @@
+package com.reqres.base;
+
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeClass;
+
+public class TestBase {
+		public static RequestSpecification httpReq;
+		public static Response response;
+
+		public Logger logger;
+		@BeforeClass
+		
+	}
+}
